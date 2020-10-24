@@ -10,6 +10,7 @@ async function run(): Promise<void> {
 
     // await wait(parseInt(ms, 10))
     // add comment
+    // more comment
 
     core.info(`context: ${context ? JSON.stringify(context) : ''}`)
 
