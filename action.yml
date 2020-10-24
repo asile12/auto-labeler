@@ -1,7 +1,6 @@
 name: 'asile12'
 description: 'Auto label PRs'
 author: 'asile12'
-inputs:
 runs:
   using: 'node12'
   main: 'dist/index.js'
