@@ -20,22 +20,9 @@ async function run(): Promise<void> {
 
       core.info(JSON.stringify(octokit))
 
-      const labelName = 'test'
+      core.info(context.payload.pull_request.base.ref)
 
-      const response = await octokit.search.labels({
-        repository_id: context.payload.id,
-        q: labelName
-      })
-
-      core.info(`response: ${JSON.stringify(response)}`)
-
-      //       Create a label
-      // octokit.issues.createLabel({
-      //   owner,
-      //   repo,
-      //   name,
-      //   color,
-      // });
+      const labelName = context.payload.pull_request.base.ref
 
       await octokit.issues.addLabels({
         issue_number: context.payload.pull_request.number,

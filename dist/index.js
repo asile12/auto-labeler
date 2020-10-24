@@ -1441,19 +1441,8 @@ function run() {
                 core.info(`current pr: ${context.payload.pull_request.number}`);
                 const octokit = github.getOctokit(repoToken);
                 core.info(JSON.stringify(octokit));
-                const labelName = 'test';
-                const response = yield octokit.search.labels({
-                    repository_id: context.payload.id,
-                    q: labelName
-                });
-                core.info(`response: ${JSON.stringify(response)}`);
-                //       Create a label
-                // octokit.issues.createLabel({
-                //   owner,
-                //   repo,
-                //   name,
-                //   color,
-                // });
+                core.info(context.payload.pull_request.base.ref);
+                const labelName = context.payload.pull_request.base.ref;
                 yield octokit.issues.addLabels(Object.assign({ issue_number: context.payload.pull_request.number, labels: [labelName] }, context.repo));
                 console.log('OK!!');
             }
