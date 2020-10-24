@@ -1433,8 +1433,17 @@ function run() {
             // core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
             // await wait(parseInt(ms, 10))
             // add comment
-            core.info(`context: ${context ? JSON.stringify(context) : ''}`);
-            core.setOutput('time', new Date().toTimeString());
+            if (context !== undefined) {
+                core.info(`context: ${JSON.stringify(context)}`);
+                if (context.payload.pull_request === undefined) {
+                    throw new Error('pull request is undefined');
+                }
+                core.info(`current pr: ${context.payload.pull_request.number}`);
+                const octokit = github.getOctokit(repoToken);
+                core.info(JSON.stringify(octokit));
+                yield octokit.issues.addLabels(Object.assign({ issue_number: context.payload.pull_request.number, labels: ['test'] }, context.repo));
+                console.log('OK!!');
+            }
         }
         catch (error) {
             core.setFailed(error.message);
