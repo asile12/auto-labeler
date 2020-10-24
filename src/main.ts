@@ -10,10 +10,23 @@ async function run(): Promise<void> {
 
     // await wait(parseInt(ms, 10))
     // add comment
+    if (context !== undefined) {
+      core.info(`context: ${JSON.stringify(context)}`)
+      if (context.payload.pull_request === undefined) {
+        throw new Error('pull request is undefined')
+      }
+      core.info(`current pr: ${context.payload.pull_request.number}`)
+      const octokit = github.getOctokit(repoToken)
 
-    core.info(`context: ${context ? JSON.stringify(context) : ''}`)
+      core.info(JSON.stringify(octokit))
 
-    core.setOutput('time', new Date().toTimeString())
+      await octokit.issues.addLabels({
+        issue_number: context.payload.pull_request.number,
+        labels: ['test'],
+        ...context.repo
+      })
+      console.log('OK!!')
+    }
   } catch (error) {
     core.setFailed(error.message)
   }
