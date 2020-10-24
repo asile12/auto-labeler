@@ -10,6 +10,9 @@ async function run(): Promise<void> {
 
     // await wait(parseInt(ms, 10))
     // add comment
+
+    // more comment
+
     if (context !== undefined) {
       core.info(`context: ${JSON.stringify(context)}`)
       if (context.payload.pull_request === undefined) {
