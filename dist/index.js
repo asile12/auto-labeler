@@ -1432,6 +1432,7 @@ function run() {
             const repoToken = core.getInput('repo-token', { required: true });
             // core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
             // await wait(parseInt(ms, 10))
+            // add comment
             core.info(`context: ${context ? JSON.stringify(context) : ''}`);
             core.setOutput('time', new Date().toTimeString());
         }
