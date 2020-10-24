@@ -1442,11 +1442,11 @@ function run() {
                 const octokit = github.getOctokit(repoToken);
                 core.info(JSON.stringify(octokit));
                 const labelName = 'test';
-                const reponse = yield octokit.search.labels({
+                const response = yield octokit.search.labels({
                     repository_id: context.payload.id,
                     q: labelName
                 });
-                core.info(JSON.stringify(reponse));
+                core.info(`response: ${JSON.stringify(response)}`);
                 //       Create a label
                 // octokit.issues.createLabel({
                 //   owner,
